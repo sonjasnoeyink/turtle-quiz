@@ -20,7 +20,7 @@
                 <strong>TURTLE QUIZ</strong>
             </h3>
         </div>
-        <div ng-controller="listCtrl as list" ng-hide="list.quizActive">
+        <div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive">
           <form class="form-inline well well-sm clearfix">
             <span class="glyphicon glyphicon-search"></span>
             <input type="text" placeholder="Search..." class="form-control" ng-model="list.search"/>
@@ -72,12 +72,15 @@
                       <button class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div><!-- List Controller -->
+
+        <div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
+          <h1>Quiz</h1>
+        </div>
 
 
 
@@ -91,6 +94,8 @@
     <!-- Our application scripts -->
     <script src="js/app.js"></script>
     <script src="js/controllers/list.js"></script>
+    <script src="js/controllers/quiz.js"></script>
+    <script src="js/factories/quizMetrics.js"></script>
 
 </body>
 </html>
