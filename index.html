@@ -26,7 +26,7 @@
               <div class="well well-sm">
                 <div class="row">
                   <div class="col-md-6">
-                    <img ng-src="{{turtle.image_url}}" class="img-rounded img-responsive">
+                    <img ng-src="{{turtle.image_url}}" class="img-rounded img-responsive well-image">
                   </div>
                   <div class="col-md-6">
                     <h4>{{turtle.type}}</h4>
@@ -34,8 +34,40 @@
                     <p><strong>Size: </strong>{{turtle.size}}</p>
                     <p><strong>Average Lifespan: </strong>{{turtle.lifespan}}</p>
                     <p><strong>Diet: </strong>{{turtle.diet}}</p>
-                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#turtle-info">Learn More</button>
+                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#turtle-info" ng-click="list.changeActiveTurtle(turtle)">Learn More</button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="turtle-info">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>{{list.activeTurtle.type}}</h2>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                      <img ng-src="{{list.activeTurtle.image_url}}" class="img-rounded img-responsive" />
+                    </div>
+                  </div>
+                  <div class="row top-buffer">
+                    <div class="col-md-6">
+                      <p><strong>Locations: </strong>{{list.activeTurtle.locations}}</p>
+                      <p><strong>Size: </strong>{{list.activeTurtle.size}}</p>
+                      <p><strong>Average Lifespan: </strong>{{list.activeTurtle.lifespan}}</p>
+                      <p><strong>Diet: </strong>{{list.activeTurtle.diet}}</p>
+                    </div>
+                    <div class="col-md-12 top-buffer">
+                      <p>
+                        {{list.activeTurtle.description}}
+                      </p>
+                      <button class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
