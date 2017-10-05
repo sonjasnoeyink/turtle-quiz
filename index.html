@@ -129,7 +129,7 @@
                             <h4>{{quiz.activeQuestion+1 + ". " + quiz.dataService.quizQuestions[quiz.activeQuestion].text}}</h4>
                             <div class="row" ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'text'">
                                 <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
-                                    <h4 class="answer">
+                                    <h4 class="answer" ng-class="{'bg-info': $index === quiz.dataService.quizQuestions[quiz.activeQuestion].selected}" ng-click="quiz.selectAnswer($index)">
                                         {{answer.answer}}
                                     </h4>
                                 </div>
