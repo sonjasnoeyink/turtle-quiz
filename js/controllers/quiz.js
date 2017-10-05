@@ -11,7 +11,13 @@
       var vm = this;
 
       vm.quizMetrics = quizMetrics;
-      vm.DataService = DataService;
+      vm.dataService = DataService;
+      vm.questionAnswered = questionAnswered;
+      vm.activeQuestion = 0;
+
+      function questionAnswered(){
+        
+      }
 
     }
 

@@ -21,92 +21,130 @@
             </h3>
         </div>
         <div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive">
-          <form class="form-inline well well-sm clearfix">
-            <span class="glyphicon glyphicon-search"></span>
-            <input type="text" placeholder="Search..." class="form-control" ng-model="list.search"/>
-            <button class="btn btn-warning pull-right" ng-click="list.activateQuiz()">Start Quiz</button>
-          </form>
-          <div class="row">
-            <div class="col-sm-6" ng-repeat="turtle in list.data | filter:list.search">
-              <div class="well well-sm">
-                <div class="row">
-                  <div class="col-md-6">
-                    <img ng-src="{{turtle.image_url}}" class="img-rounded img-responsive well-image">
-                  </div>
-                  <div class="col-md-6">
-                    <h4>{{turtle.type}}</h4>
-                    <p><strong>Locations: </strong>{{turtle.locations}}</p>
-                    <p><strong>Size: </strong>{{turtle.size}}</p>
-                    <p><strong>Average Lifespan: </strong>{{turtle.lifespan}}</p>
-                    <p><strong>Diet: </strong>{{turtle.diet}}</p>
-                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#turtle-info" ng-click="list.changeActiveTurtle(turtle)">Learn More</button>
-                  </div>
-                </div>
-              </div>
+            <form class="form-inline well well-sm clearfix">
+                <span class="glyphicon glyphicon-search"></span>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    class="form-control"
+                    ng-model="list.search">
+                <button class="btn btn-warning pull-right"
+                    ng-click="list.activateQuiz()">
+                    <strong>Start Quiz</strong>
+                </button>
+            </form>
+            <div class="row">
+                <div class="col-sm-6" ng-repeat="turtle in list.data | filter:list.search">
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img ng-src="{{turtle.image_url}}"
+                                    class="img-rounded img-responsive well-image">
+                            </div>
+                            <div class="col-md-6">
+                                <h4>{{turtle.type}}</h4>
+                                <p><strong>Locations: </strong>{{turtle.locations}}</p>
+                                <p><strong>Size: </strong>{{turtle.size}}</p>
+                                <p><strong>Average Lifespan: </strong>{{turtle.lifespan}}</p>
+                                <p><strong>Diet: </strong>{{turtle.diet}}</p>
+                                <button class="btn btn-primary pull-right"
+                                    data-toggle="modal"
+                                    data-target="#turtle-info"
+                                    ng-click="list.changeActiveTurtle(turtle)">Learn More</button>
+                            </div>
+                        </div><!-- row -->
+                    </div><!-- well -->
+                </div><!-- col-xs-6 -->
             </div>
-          </div>
 
-          <div class="modal" id="turtle-info">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2>{{list.activeTurtle.type}}</h2>
+			<!-- the markup for the modal -->
+            <div class="modal" id="turtle-info">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>{{list.activeTurtle.type}}</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <img ng-src="{{list.activeTurtle.image_url}}" class="img-rounded img-responsive">
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="col-md-6">
+                                    <p><strong>Locations: </strong>{{list.activeTurtle.locations}}</p>
+                                    <p><strong>Size: </strong>{{list.activeTurtle.size}}</p>
+                                    <p><strong>Average Lifespan: </strong>{{list.activeTurtle.lifespan}}</p>
+                                    <p><strong>Diet: </strong>{{list.activeTurtle.diet}}</p>
+                                </div>
+                                <div class="col-xs-12 top-buffer">
+                                    <p>{{list.activeTurtle.description}}</p>
+                                    <button class="btn btn-danger pull-right"
+                                        data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-xs-8 col-xs-offset-2">
-                      <img ng-src="{{list.activeTurtle.image_url}}" class="img-rounded img-responsive" />
-                    </div>
-                  </div>
-                  <div class="row top-buffer">
-                    <div class="col-md-6">
-                      <p><strong>Locations: </strong>{{list.activeTurtle.locations}}</p>
-                      <p><strong>Size: </strong>{{list.activeTurtle.size}}</p>
-                      <p><strong>Average Lifespan: </strong>{{list.activeTurtle.lifespan}}</p>
-                      <p><strong>Diet: </strong>{{list.activeTurtle.diet}}</p>
-                    </div>
-                    <div class="col-md-12 top-buffer">
-                      <p>
-                        {{list.activeTurtle.description}}
-                      </p>
-                      <button class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div><!-- List Controller -->
 
         <div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
-          <div class="row">
-            <div class="col-xs-8">
-              <h2>Progress:</h2>
-              <div class="btn-toolbar">
-                <button class="btn" ng-repeat="question in quiz.DataService.quizQuestions" ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}">
-                  <span class="glyphicon" ng-class="{'glyphicon-pencil': question.selected !== null, 'glyphicon-question-sign': question.selected === null}"></span>
-                </button>
-              </div>
-            </div>
-            <div class="col-xs-4">
-              <div class="row">
-                <h4>Legend</h4>
-                <div class="col-sm-4">
-                  <button class="btn btn-info">
-                      <span class="glyphicon glyphicon-pencil"></span>
-                  </button>
-                  <p>Answered</p>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2>Progress:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn"
+                            ng-repeat="question in quiz.dataService.quizQuestions"
+                            ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}">
+                            <span class="glyphicon"
+                                ng-class="{'glyphicon-pencil': question.selected !== null, 'glyphicon-question-sign': question.selected === null}"></span>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <button class="btn btn-danger">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                    </button>
-                    <p>Unanswered</p>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <h4>Legend:</h4>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <p>Answered</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                            <p>Unanswered</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </div><!-- progress area -->
+
+            <div class="row">
+                <h3>Question:</h3>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>{{quiz.activeQuestion+1 + ". " + quiz.dataService.quizQuestions[quiz.activeQuestion].text}}</h4>
+                            <div class="row">
+                                <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
+                                    <h4 class="answer">
+                                        {{answer.answer}}
+                                    </h4>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <button class="btn btn-warning" ng-click="quiz.questionAnswered()">Continue</button>
+                </div>
+
+
+            </div><!-- question row -->
+        </div><!-- quiz controller -->
 
 
 
