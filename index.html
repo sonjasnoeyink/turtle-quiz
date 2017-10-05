@@ -96,7 +96,8 @@
                     <div class="btn-toolbar">
                         <button class="btn"
                             ng-repeat="question in quiz.dataService.quizQuestions"
-                            ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}">
+                            ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}"
+                            ng-click="quiz.setActiveQuestion($index)">
                             <span class="glyphicon"
                                 ng-class="{'glyphicon-pencil': question.selected !== null, 'glyphicon-question-sign': question.selected === null}"></span>
                         </button>
@@ -127,6 +128,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>{{quiz.activeQuestion+1 + ". " + quiz.dataService.quizQuestions[quiz.activeQuestion].text}}</h4>
+
                             <div class="row" ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'text'">
                                 <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
                                     <h4 class="answer" ng-class="{'bg-info': $index === quiz.dataService.quizQuestions[quiz.activeQuestion].selected}" ng-click="quiz.selectAnswer($index)">
@@ -137,7 +139,7 @@
 
                             <div class="row" ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'image'">
                                 <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
-                                    <div class="image-answer">
+                                    <div class="image-answer" ng-class="{'image-selected': $index === quiz.dataService.quizQuestions[quiz.activeQuestion].selected}" ng-click="quiz.selectAnswer($index)">
                                       <img ng-src="{{answer.answer}}" />
                                     </div>
                                 </div>

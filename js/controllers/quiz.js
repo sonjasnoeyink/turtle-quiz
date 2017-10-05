@@ -54,6 +54,8 @@
          * the activeQuestion to the number that was passed in as an argument
          */
         function setActiveQuestion(index){
+          if(index === undefined){
+
 
             var breakOut = false;
 
@@ -80,7 +82,9 @@
                     breakOut = true;
                 }
             }
-
+          } else {
+            vm.activeQuestion = index;
+          }
         }
 
         function questionAnswered(){
