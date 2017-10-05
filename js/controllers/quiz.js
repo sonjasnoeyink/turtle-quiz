@@ -38,6 +38,8 @@
         vm.setActiveQuestion = setActiveQuestion;
         vm.selectAnswer = selectAnswer;
         vm.activeQuestion = 0;
+        vm.error = false;
+        vm.finalize = false;
 
         var numQuestionsAnswered = 0;
 
@@ -75,7 +77,9 @@
                 // check if last question is reach, if not increment. If it
                 // has go back to start.
                 vm.activeQuestion = vm.activeQuestion < quizLength?++vm.activeQuestion:0;
-
+                if(vm.activeQuestion === 0){
+                  vm.error = true;
+                }
                 // if current active question has not been selected, break
                 // out the while loop
                 if(DataService.quizQuestions[vm.activeQuestion].selected === null){
@@ -95,6 +99,15 @@
                 numQuestionsAnswered++;
                 if(numQuestionsAnswered >= quizLength){
                     // Finalise quiz
+                  for(var i = 0; i < quizLength, i++){
+                    if(DataService.quizQuestions[i].selected = null){
+                      setActiveQuestion(i);
+                      return;
+                    }
+                  }
+                  vm.error = false;
+                  vm.finalize = true;
+                  return;
                 }
             }
             vm.setActiveQuestion();

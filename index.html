@@ -123,6 +123,10 @@
             </div><!-- progress area -->
 
             <div class="row">
+              <div class="alert alert-danger" ng-show="quiz.error">
+                Error! You have not answered all of the questions.
+                <button class="close" ng-click="quiz.error = false">&times</button>
+              </div>
                 <h3>Question:</h3>
                 <div class="well well-sm">
                     <div class="row">
