@@ -170,7 +170,37 @@
         </div><!-- quiz controller -->
 
         <div ng-controller="resultsCtrl as results" ng-show="results.quizMetrics.resultsActive">
-           <h1>text</h1>
+          <div class="row">
+              <div class="col-xs-8">
+                  <h2>Results:</h2>
+                  <div class="btn-toolbar">
+                      <button class="btn"
+                          ng-repeat="question in results.dataService.quizQuestions"
+                          ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}"
+                          ng-click="results.setActiveQuestion($index)">
+                           <span class="glyphicon"
+                               ng-class="{'glyphicon-ok': question.correct, 'glyphicon-remove': !question.correct}"></span>
+                      </button>
+                  </div>
+              </div>
+              <div class="col-xs-4">
+                  <div class="row">
+                      <h4>Legend:</h4>
+                      <div class="col-sm-4">
+                          <button class="btn btn-success">
+                              <span class="glyphicon glyphicon-ok"></span>
+                          </button>
+                          <p>Correct</p>
+                      </div>
+                      <div class="col-sm-4">
+                          <button class="btn btn-danger">
+                              <span class="glyphicon glyphicon-remove"></span>
+                          </button>
+                          <p>Incorrect</p>
+                      </div>
+                  </div>
+              </div>
+          </div><!-- row -->
         </div>
 
 
