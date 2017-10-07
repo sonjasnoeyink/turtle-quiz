@@ -37,9 +37,10 @@
         vm.questionAnswered = questionAnswered;
         vm.setActiveQuestion = setActiveQuestion;
         vm.selectAnswer = selectAnswer;
+        vm.finaliseAnswers = finaliseAnswers;
         vm.activeQuestion = 0;
         vm.error = false;
-        vm.finalize = false;
+        vm.finalise = false;
 
         var numQuestionsAnswered = 0;
 
@@ -98,26 +99,49 @@
             if(DataService.quizQuestions[vm.activeQuestion].selected !== null){
                 numQuestionsAnswered++;
                 if(numQuestionsAnswered >= quizLength){
-                    // Finalise quiz
-                  for(var i = 0; i < quizLength, i++){
-                    if(DataService.quizQuestions[i].selected = null){
-                      setActiveQuestion(i);
-                      return;
+                    // final check to ensure all questions are actuall answered
+                    for(var i = 0; i < quizLength; i++){
+                        /*
+                         * if find a question that is not answered, set it to
+                         * active question then return from this function
+                         * to ensure finalise flag is not set
+                         */
+                        if(DataService.quizQuestions[i].selected === null){
+                            setActiveQuestion(i);
+                            return;
+                        }
                     }
-                  }
-                  vm.error = false;
-                  vm.finalize = true;
-                  return;
+                    // set finalise flag and remove any existing warnings
+                    vm.error = false;
+                    vm.finalise = true;
+                    return;
                 }
             }
+            /*
+             * There are still questions to answer so increment to next
+             * unanswered question using the setActiveQuestion method
+             */
             vm.setActiveQuestion();
         }
 
+        /*
+         * When a user clicks an answer, this method will set that answer as
+         * their selection for that question on the quizMetrics object. This
+         * then allows the view to add classes to the answer to indicate it is
+         * the current selection
+         */
         function selectAnswer(index){
-          DataService.quizQuestions[vm.activeQuestion].selected = index;
+            DataService.quizQuestions[vm.activeQuestion].selected = index;
         }
 
-
+        function finaliseAnswers(){
+            vm.finalise = false;
+            numQuestionsAnswered = 0;
+            vm.activeQuestion = 0;
+            quizMetrics.markQuiz();
+            quizMetrics.changeState("quiz", false);
+            quizMetrics.changeState("results", true);
+        }
     }
 
 })();
