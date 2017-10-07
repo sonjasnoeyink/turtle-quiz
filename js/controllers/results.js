@@ -16,10 +16,10 @@
 
         function getAnswerClass(index){
           if(index === quizMetrics.correctAnswers[vm.activeQuestion]){
-            return "bg-success"
-          } else if(index === DataService.quizQuestions[vm.activeQuestion.selected]){
-            return "bg-danger"
-          }
+            return "bg-success";
+          } else if(index === DataService.quizQuestions[vm.activeQuestion].selected){
+              return "bg-danger";
+            }
         }
 
     }
