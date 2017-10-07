@@ -35,10 +35,10 @@
   border: 3px solid #56afdc;
 }
 
-.image-answer .bg-success{
+.image-answer.bg-success{
   border: 3px solid #5ea640;
 }
 
-.image-answer .bg-danger{
+.image-answer.bg-danger{
   border: 3px solid #b74848;
 }

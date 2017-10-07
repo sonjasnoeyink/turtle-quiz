@@ -215,11 +215,13 @@
                           <h4>{{results.activeQuestion+1 +". "+results.dataService.quizQuestions[results.activeQuestion].text}}</h4>
 
                           <div class="row"
-                              ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'text'">
+                              ng-if="results.dataService.quizQuestions[results.activeQuestion].type === 'text'">
+                              <!-- ng-repeat being utilised again -->
                               <div class="col-sm-6" ng-repeat="answer in results.dataService.quizQuestions[results.activeQuestion].possibilities">
                                   <h4 class="answer"
                                       ng-class="results.getAnswerClass($index)">
                                       {{answer.answer}}
+                                      <!-- more usage of the ng-show directive to selectively show the elements on condition -->
                                       <p class="pull-right"
                                            ng-show="$index !== results.quizMetrics.correctAnswers[results.activeQuestion] && $index === results.dataService.quizQuestions[results.activeQuestion].selected">Your Answer</p>
                                       <p class="pull-right"
@@ -227,13 +229,14 @@
                                   </h4>
                               </div>
                           </div><!-- row -->
+
                           <div class="row"
-                              ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'image'">
-                              <!-- more bootstrap and another ng-repeat, this time looping through the possible answers -->
-                              <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
+                              ng-if="results.dataService.quizQuestions[results.activeQuestion].type === 'image'">
+                              <!-- more ng-repeat -->
+                              <div class="col-sm-6" ng-repeat="answer in results.dataService.quizQuestions[results.activeQuestion].possibilities">
+                                 <!-- ng-class and ng-src -->
                                   <div class="image-answer"
-                                      ng-class="{'image-selected': $index === quiz.dataService.quizQuestions[quiz.activeQuestion].selected}"
-                                      ng-click="quiz.selectAnswer($index)">
+                                      ng-class="results.getAnswerClass($index)">
                                       <img ng-src="{{answer.answer}}">
                                   </div>
                               </div>
@@ -242,6 +245,7 @@
                       </div>
                   </div>
               </div><!-- well -->
+              <button class="btn btn-primary btn-lg" ng-click="results.reset()">Go Back to Facts</button>
           </div>
         </div>
 
